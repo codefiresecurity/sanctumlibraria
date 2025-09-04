@@ -1,0 +1,8 @@
+# backend/requirements.txt
+fastapi==0.115.0
+uvicorn==0.30.6
+sqlalchemy==2.0.35
+pymysql==1.1.1
+pyjwt==2.9.0
+passlib[bcrypt]==1.7.4
+requests==2.32.3
