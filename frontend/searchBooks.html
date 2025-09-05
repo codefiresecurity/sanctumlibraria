@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Books - Sanctum Libraria</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Search Books</h1>
+            <nav>
+                <a href="searchBooks.html" class="active">Search</a>
+                <a href="myLibrary.html">My Library</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </header>
+        <form id="search-form">
+            <label for="isbn-input">ISBN</label>
+            <input type="text" id="isbn-input" placeholder="Enter ISBN" required>
+            <button type="submit" class="btn primary">Search</button>
+            <button type="button" class="btn secondary">Cancel</button>
+        </form>
+        <!-- Modal for selecting media type -->
+        <div id="add-book-modal" class="modal">
+            <div class="modal-content">
+                <h2>Add Book to Library</h2>
+                <form id="add-book-form">
+                    <div class="form-group">
+                        <label for="media-type">Media Type</label>
+                        <select id="media-type" name="media_type" required>
+                            <option value="">Select Media Type</option>
+                            <option value="physical">Physical</option>
+                            <option value="electronic">E-book</option>
+                            <option value="audiobook">Audiobook</option>
+                        </select>
+                    </div>
+                    <div id="audiobook-link-group" class="form-group" style="display: none;">
+                        <label for="audiobook-link">Audiobook Link</label>
+                        <input type="url" id="audiobook-link" name="link" placeholder="Enter audiobook URL">
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn primary">Add Book</button>
+                        <button type="button" class="btn secondary" onclick="closeModal()">Cancel</button>
+                    </div>
+                </form>
+                <p id="modal-error" class="error text-center"></p>
+            </div>
+        </div>
+    </div>
+    <script src="./js/searchBooks.js"></script>
+</body>
+</html>

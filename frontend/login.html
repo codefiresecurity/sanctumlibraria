@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sanctum Libraria</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <h1>Login to Sanctum Libraria</h1>
+    <form id="login-form">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn primary">Login</button>
+        <button type="button" class="btn secondary" onclick="document.getElementById('login-form').reset()">Cancel</button>
+    </form>
+    <p class="error" id="error-message"></p>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            if (!username || !password) {
+                errorMessage.textContent = 'Please enter both username and password';
+                return;
+            }
+
+            try {
+                const formData = new FormData();
+                formData.append('username', username);
+                formData.append('password', password);
+
+                const response = await fetch('http://localhost:8000/token', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    errorMessage.textContent = errorData.detail || 'Login failed. Please try again.';
+                    return;
+                }
+
+                const data = await response.json();
+                localStorage.setItem('access_token', data.access_token);
+                console.log('Login successful, token stored:', data.access_token);
+                window.location.href = 'searchBooks.html';
+            } catch (error) {
+                console.error('Error during login:', error);
+                errorMessage.textContent = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
